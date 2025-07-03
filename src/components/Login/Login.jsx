@@ -10,7 +10,7 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // console.log(email, password);
-    fetch("http://localhost:3000/api/auth/login", {
+    fetch("http://localhost:3000/api/auth/admin/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -19,8 +19,7 @@ const Login = () => {
     })
       .then((res) => res.json())
       .then((res) => {
-        // console.log(res.message);
-        if (res.message === "Login successful") {
+        if (res.message === "Logged in as ADMIN") {
           // store token in localStorage
           localStorage.setItem("jwt-token", res.token);
           alert(res.message);
