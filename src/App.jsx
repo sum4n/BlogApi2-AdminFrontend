@@ -1,12 +1,13 @@
 import "./App.css";
 import NavigationBar from "./components/NavigationBar/NavigationBar";
 import { useEffect, useState } from "react";
-import Login from "./components/Login/Login";
-import AdminDashboard from "./components/AdminDashboard/AdminDashboard";
+import { Outlet, useNavigate } from "react-router-dom";
 
 function App() {
   const [user, setUser] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("jwt-token");
@@ -29,12 +30,13 @@ function App() {
     setUser(null);
     setLoggedIn(false);
     localStorage.removeItem("jwt-token");
+    navigate("/user/login");
   };
 
   return (
     <>
       <NavigationBar user={user} handleLogout={handleLogout} />
-      {user ? <AdminDashboard /> : <Login setLoggedIn={setLoggedIn} />}
+      <Outlet context={{ user, setLoggedIn }} />
     </>
   );
 }
