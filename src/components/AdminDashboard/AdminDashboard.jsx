@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const AdminDashboard = () => {
   const [posts, setPosts] = useState([]);
@@ -17,6 +18,7 @@ const AdminDashboard = () => {
       <p>
         <>Admin Dashboard</>
       </p>
+      <Link to="/posts/new">Write a new post:</Link>
       <p>Posts:</p>
       <ul>
         {posts.map((post) => {
