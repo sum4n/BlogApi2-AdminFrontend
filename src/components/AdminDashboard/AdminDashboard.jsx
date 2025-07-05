@@ -1,30 +1,43 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useOutletContext } from "react-router-dom";
+import Login from "../Login/Login";
 
 const AdminDashboard = () => {
   const [posts, setPosts] = useState([]);
+  const { user } = useOutletContext();
+  // console.log(user);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/posts")
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res.posts);
-        setPosts(res.posts);
-      });
-  }, []);
+    if (user) {
+      fetch("http://localhost:3000/api/posts")
+        .then((res) => res.json())
+        .then((res) => {
+          console.log(res.posts);
+          setPosts(res.posts);
+        });
+    }
+  }, [user, navigate]);
 
   return (
     <>
-      <p>
-        <>Admin Dashboard</>
-      </p>
-      <Link to="/posts/new">Write a new post:</Link>
-      <p>Posts:</p>
-      <ul>
-        {posts.map((post) => {
-          return <ListItem post={post} key={post.id} />;
-        })}
-      </ul>
+      {user ? (
+        <>
+          <p>
+            <>Admin Dashboard</>
+          </p>
+          <Link to="/posts/new">Write a new post:</Link>
+          <p>Posts:</p>
+          <ul>
+            {posts.map((post) => {
+              return <ListItem post={post} key={post.id} />;
+            })}
+          </ul>{" "}
+        </>
+      ) : (
+        <Login />
+      )}
     </>
   );
 };
