@@ -1,9 +1,12 @@
 import "./App.css";
 import NavigationBar from "./components/NavigationBar/NavigationBar";
 import { useEffect, useState } from "react";
+import Login from "./components/Login/Login";
+import AdminDashboard from "./components/AdminDashboard/AdminDashboard";
 
 function App() {
   const [user, setUser] = useState(null);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("jwt-token");
@@ -20,16 +23,18 @@ function App() {
           localStorage.removeItem("jwt-token");
         });
     }
-  }, []);
+  }, [loggedIn]);
 
   const handleLogout = () => {
     setUser(null);
+    setLoggedIn(false);
     localStorage.removeItem("jwt-token");
   };
 
   return (
     <>
       <NavigationBar user={user} handleLogout={handleLogout} />
+      {user ? <AdminDashboard /> : <Login setLoggedIn={setLoggedIn} />}
     </>
   );
 }

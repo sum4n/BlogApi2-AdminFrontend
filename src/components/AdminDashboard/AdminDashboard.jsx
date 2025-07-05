@@ -31,7 +31,7 @@ const ListItem = ({ post }) => {
   const [published, setPublished] = useState(post.published);
 
   function handlePublish(e, postId) {
-    console.log(published);
+    // console.log(published);
     // const value = e.target.checked;
     // console.log(value, postId);
 
@@ -44,9 +44,9 @@ const ListItem = ({ post }) => {
       body: JSON.stringify({ published: !post.published }),
     })
       .then((res) => res.json())
-      .then((data) => {
+      .then(() => {
         setPublished(!published);
-        console.log("Published updated", data);
+        // console.log("Published updated", data);
       })
       .catch((err) => {
         console.error("Failed to update publish status:", err);

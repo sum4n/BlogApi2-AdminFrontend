@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Login = ({ setLoggedIn }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -25,6 +25,7 @@ const Login = () => {
           alert(res.message);
           setEmail("");
           setPassword("");
+          setLoggedIn(true);
           navigate("/");
         } else {
           alert(res.message);
