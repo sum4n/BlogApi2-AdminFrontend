@@ -5,19 +5,17 @@ import "./index.css";
 import App from "./App.jsx";
 import Login from "./components/Login/Login.jsx";
 import NewPost from "./components/NewPost/NewPost.jsx";
+import AdminDashboard from "./components/AdminDashboard/AdminDashboard.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-  },
-  {
-    path: "/user/login",
-    element: <Login />,
-  },
-  {
-    path: "/posts/new",
-    element: <NewPost />,
+    children: [
+      { index: true, element: <AdminDashboard /> },
+      { path: "/user/login", element: <Login /> },
+      { path: "/posts/new", element: <NewPost /> },
+    ],
   },
 ]);
 
