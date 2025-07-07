@@ -5,7 +5,7 @@ const NavigationBar = ({ user, handleLogout }) => {
   return (
     <div className={styles.flexnav}>
       <h1>
-        <p>My Blog</p>
+        <Link to={"/"}>My Blog</Link>
       </h1>
       {user && (
         <div className={styles.flexauth}>
