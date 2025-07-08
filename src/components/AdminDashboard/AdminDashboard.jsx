@@ -82,6 +82,7 @@ const ListItem = ({ post }) => {
             onChange={(e) => handlePublish(e, post.id)}
           />
         </form>
+        <Link to={`/posts/${post.id}/edit`}>Edit</Link>
       </li>
     </>
   );
