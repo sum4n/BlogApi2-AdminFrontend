@@ -1,13 +1,11 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate, useOutletContext } from "react-router-dom";
+import { Link, useOutletContext } from "react-router-dom";
 import Login from "../Login/Login";
 
 const AdminDashboard = () => {
   const [posts, setPosts] = useState([]);
   const { user } = useOutletContext();
   // console.log(user);
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (user) {
@@ -18,7 +16,7 @@ const AdminDashboard = () => {
           setPosts(res.posts);
         });
     }
-  }, [user, navigate]);
+  }, [user]);
 
   return (
     <>
