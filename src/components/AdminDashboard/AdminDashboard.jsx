@@ -69,7 +69,7 @@ const ListItem = ({ post }) => {
   return (
     <>
       <li>
-        <p>{post.title}</p>
+        <Link to={`/posts/${post.id}`}>{post.title}</Link>
         <p>{post.content}</p>
         <form>
           <label htmlFor="post-published">Published</label>

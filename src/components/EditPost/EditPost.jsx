@@ -1,8 +1,9 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const EditPost = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   // const [post, setPost] = useState("");
 
   const [title, setTitle] = useState("");
@@ -44,6 +45,7 @@ const EditPost = () => {
           setSuccessMsg(res.message);
           setTitle("");
           setContent("");
+          navigate(`/posts/${id}`);
         } else {
           if (res.error) {
             setValidationErrors(res.error);

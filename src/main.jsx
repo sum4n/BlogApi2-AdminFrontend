@@ -7,6 +7,7 @@ import Login from "./components/Login/Login.jsx";
 import NewPost from "./components/NewPost/NewPost.jsx";
 import AdminDashboard from "./components/AdminDashboard/AdminDashboard.jsx";
 import EditPost from "./components/EditPost/EditPost.jsx";
+import PostDetail from "./components/PostDetail/PostDetail.jsx";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,7 @@ const router = createBrowserRouter([
       { path: "/user/login", element: <Login /> },
       { path: "/posts/new", element: <NewPost /> },
       { path: "/posts/:id/edit", element: <EditPost /> },
+      { path: "/posts/:id", element: <PostDetail /> },
     ],
   },
 ]);
