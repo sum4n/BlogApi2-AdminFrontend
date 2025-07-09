@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Link, useOutletContext } from "react-router-dom";
-import Login from "../Login/Login";
 
 const AdminDashboard = () => {
   const [posts, setPosts] = useState([]);
@@ -9,7 +8,7 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     if (user) {
-      fetch("http://localhost:3000/api/posts")
+      fetch("http://localhost:3000/api/admin/posts")
         .then((res) => res.json())
         .then((res) => {
           console.log(res.posts);
@@ -20,22 +19,14 @@ const AdminDashboard = () => {
 
   return (
     <>
-      {user ? (
-        <>
-          <p>
-            <>Admin Dashboard</>
-          </p>
-          <Link to="/posts/new">Write a new post:</Link>
-          <p>Posts:</p>
-          <ul>
-            {posts.map((post) => {
-              return <ListItem post={post} key={post.id} />;
-            })}
-          </ul>{" "}
-        </>
-      ) : (
-        <Login />
-      )}
+      <p>Admin Dashboard</p>
+      <Link to="/posts/new">Write a new post:</Link>
+      <p>Posts:</p>
+      <ul>
+        {posts.map((post) => {
+          return <ListItem post={post} key={post.id} />;
+        })}
+      </ul>{" "}
     </>
   );
 };
