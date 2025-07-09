@@ -8,17 +8,46 @@ import NewPost from "./components/NewPost/NewPost.jsx";
 import AdminDashboard from "./components/AdminDashboard/AdminDashboard.jsx";
 import EditPost from "./components/EditPost/EditPost.jsx";
 import PostDetail from "./components/PostDetail/PostDetail.jsx";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     children: [
-      { index: true, element: <AdminDashboard /> },
+      {
+        index: true,
+        element: (
+          <ProtectedRoute>
+            <AdminDashboard />
+          </ProtectedRoute>
+        ),
+      },
       { path: "/user/login", element: <Login /> },
-      { path: "/posts/new", element: <NewPost /> },
-      { path: "/posts/:id/edit", element: <EditPost /> },
-      { path: "/posts/:id", element: <PostDetail /> },
+      {
+        path: "/posts/new",
+        element: (
+          <ProtectedRoute>
+            <NewPost />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/posts/:id/edit",
+        element: (
+          <ProtectedRoute>
+            <EditPost />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/posts/:id",
+        element: (
+          <ProtectedRoute>
+            <PostDetail />
+          </ProtectedRoute>
+        ),
+      },
     ],
   },
 ]);
