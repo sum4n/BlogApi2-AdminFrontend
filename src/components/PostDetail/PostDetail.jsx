@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import Comments from "../Comments/Comments";
 
 const PostDetail = () => {
   const [post, setPost] = useState({});
@@ -23,6 +24,8 @@ const PostDetail = () => {
       <p>Created: {post.createdAt}</p>
       <p>Updated: {post.updatedAt}</p>
       <Link to={`/posts/${post.id}/edit`}>Edit</Link>
+      <hr />
+      <Comments postId={id} />
     </>
   );
 };
