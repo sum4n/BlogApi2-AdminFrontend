@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import Comments from "../Comments/Comments";
+import { API_BASE } from "../../config";
 
 const PostDetail = () => {
   const [post, setPost] = useState({});
@@ -9,7 +10,7 @@ const PostDetail = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/posts/${id}`)
+    fetch(`${API_BASE}/api/posts/${id}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data.post);
@@ -23,7 +24,7 @@ const PostDetail = () => {
     let confirmDelete = confirm("Do you really want to delete the post?");
 
     if (confirmDelete) {
-      fetch(`http://localhost:3000/api/posts/${e.target.id}`, {
+      fetch(`${API_BASE}/api/posts/${e.target.id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("jwt-token")}`,

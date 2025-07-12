@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { API_BASE } from "../../config";
 
 const NewPost = () => {
   const [title, setTitle] = useState("");
@@ -15,7 +16,7 @@ const NewPost = () => {
     setErrorMsg("");
     setValidationErrors([]);
 
-    fetch("http://localhost:3000/api/posts", {
+    fetch(`${API_BASE}/api/posts`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

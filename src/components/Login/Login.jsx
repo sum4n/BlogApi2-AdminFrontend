@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
+import { API_BASE } from "../../config";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -18,7 +19,7 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // console.log(email, password);
-    fetch("http://localhost:3000/api/auth/admin/login", {
+    fetch(`${API_BASE}/api/auth/admin/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

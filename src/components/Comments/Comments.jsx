@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 // import { Link } from "react-router-dom";
+import { API_BASE } from "../../config";
 
 const Comments = ({ postId }) => {
   const [comments, setComments] = useState(null);
@@ -7,7 +8,7 @@ const Comments = ({ postId }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/posts/${postId}/comments`)
+    fetch(`${API_BASE}/api/posts/${postId}/comments`)
       .then(async (response) => {
         if (response.status >= 400) {
           const errorData = await response.json();
@@ -31,16 +32,13 @@ const Comments = ({ postId }) => {
     // console.log(confirmDelete);
 
     if (confirmDelete) {
-      fetch(
-        `http://localhost:3000/api/posts/${postId}/comments/${e.target.id}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("jwt-token")}`,
-          },
-        }
-      )
+      fetch(`${API_BASE}/api/posts/${postId}/comments/${e.target.id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("jwt-token")}`,
+        },
+      })
         .then((res) => res.json())
         .then(() => {
           let updatedComments = comments.filter((comment) => {

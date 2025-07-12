@@ -1,5 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { API_BASE } from "../../config";
 
 const EditPost = () => {
   const { id } = useParams();
@@ -13,7 +14,7 @@ const EditPost = () => {
   const [validationErrors, setValidationErrors] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/posts/${id}`)
+    fetch(`${API_BASE}/api/posts/${id}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data.post);
@@ -30,7 +31,7 @@ const EditPost = () => {
     setErrorMsg("");
     setValidationErrors("");
 
-    fetch(`http://localhost:3000/api/posts/${id}`, {
+    fetch(`${API_BASE}/api/posts/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

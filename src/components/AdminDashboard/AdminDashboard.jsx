@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useOutletContext } from "react-router-dom";
+import { API_BASE } from "../../config";
 
 const AdminDashboard = () => {
   const [posts, setPosts] = useState([]);
@@ -8,7 +9,7 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     if (user) {
-      fetch("http://localhost:3000/api/admin/posts")
+      fetch(`${API_BASE}/api/admin/posts`)
         .then((res) => res.json())
         .then((res) => {
           console.log(res.posts);
@@ -46,7 +47,7 @@ const ListItem = ({ post, setPosts, posts }) => {
     // const value = e.target.checked;
     // console.log(value, postId);
 
-    fetch(`http://localhost:3000/api/posts/${postId}/publish`, {
+    fetch(`${API_BASE}/api/posts/${postId}/publish`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -70,7 +71,7 @@ const ListItem = ({ post, setPosts, posts }) => {
     let confirmDelete = confirm("Do you really want to delete the post?");
 
     if (confirmDelete) {
-      fetch(`http://localhost:3000/api/posts/${e.target.id}`, {
+      fetch(`${API_BASE}/api/posts/${e.target.id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("jwt-token")}`,
