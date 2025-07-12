@@ -24,14 +24,21 @@ const AdminDashboard = () => {
       <p>Posts:</p>
       <ul>
         {posts.map((post) => {
-          return <ListItem post={post} key={post.id} />;
+          return (
+            <ListItem
+              post={post}
+              posts={posts}
+              setPosts={setPosts}
+              key={post.id}
+            />
+          );
         })}
       </ul>{" "}
     </>
   );
 };
 
-const ListItem = ({ post }) => {
+const ListItem = ({ post, setPosts, posts }) => {
   const [published, setPublished] = useState(post.published);
 
   function handlePublish(e, postId) {
@@ -57,6 +64,34 @@ const ListItem = ({ post }) => {
       });
   }
 
+  function handleDelete(e) {
+    e.preventDefault();
+    console.log(e.target.id);
+    let confirmDelete = confirm("Do you really want to delete the post?");
+
+    if (confirmDelete) {
+      fetch(`http://localhost:3000/api/posts/${e.target.id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("jwt-token")}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          console.log(res);
+          // delete posts from react memory
+          const newPosts = posts.filter((post) => {
+            return post.id != e.target.id;
+          });
+
+          setPosts(newPosts);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
+  }
+
   return (
     <>
       <li>
@@ -74,7 +109,12 @@ const ListItem = ({ post }) => {
           />
         </form>
         <Link to={`/posts/${post.id}/edit`}>Edit</Link>
+        <form id={post.id} onSubmit={handleDelete}>
+          <br />
+          <button type="submit">Delete</button>
+        </form>
       </li>
+      <hr />
     </>
   );
 };
