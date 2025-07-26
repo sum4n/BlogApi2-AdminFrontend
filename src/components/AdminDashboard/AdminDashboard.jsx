@@ -53,7 +53,7 @@ const ListItem = ({ post, setPosts, posts }) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("jwt-token")}`,
       },
-      body: JSON.stringify({ published: !post.published }),
+      body: JSON.stringify({ published: !published }),
     })
       .then((res) => res.json())
       .then(() => {
